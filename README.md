@@ -76,7 +76,7 @@ If the handlers reside in their own file, just import it in every file where you
 This release introduces a new function and optional parameter in the constructor:
 
 ```php
-$client = new \Raygun4php\RaygunClient("{{apikey}}==", boolean useFastSending);
+$client = new \Raygun4php\RaygunClient("{{apikey}}", boolean $useFastSending);
 ```
 
 * If useFastSending is *false*, the old cURL algorithm will be used. This is slower but potentially more reliable, assuming you have the cURL dependency enabled. *This is the default behavior.*

@@ -128,7 +128,12 @@ namespace Raygun4php {
         public function flushSendQueue()
         {
             foreach ($this->queuedMessages as $message) {
-                $this->messageSender->Send($message);
+                try {
+                    $this->messageSender->Send($message);
+                }
+                catch(\Exception $exception) {
+                    syslog(LOG_ERR, "Failed to record error with Raygun because " . $exception->getMessage());
+                }
             }
             $this->queuedMessages = array();
         }

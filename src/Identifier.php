@@ -1,7 +1,7 @@
 <?php
 namespace MeadSteve\Raygun4php;
 
-class RaygunIdentifier
+class Identifier
 {
 		public $Identifier;
 

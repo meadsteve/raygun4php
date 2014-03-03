@@ -1,33 +1,28 @@
 <?php
 namespace MeadSteve\Raygun4php;
 
-class RaygunQueueingClient
+use MeadSteve\Raygun4php\Senders\MessageSender;
+
+class QueueingClient
 {
     protected $useAsyncSending;
     protected $queuedMessages = array();
 
     /**
-     * @var Senders\RaygunStreamSocketSender
+     * @var Senders\StreamSocketSender
      */
     protected $messageSender;
 
     /**
-     * @var RaygunMessageBuilder
+     * @var MessageBuilder
      */
     protected $messageBuilder;
 
-    public function __construct($key, $useAsyncSending = true)
+    public function __construct(MessageBuilder $messageBuilder, MessageSender $messageSender, $useAsyncSending = true)
     {
         $this->useAsyncSending = $useAsyncSending;
-
-        $this->messageSender = new Senders\RaygunStreamSocketSender(
-            $key,
-            'api.raygun.io',
-            '/entries',
-            realpath(__DIR__ . '/cacert.crt')
-        );
-
-        $this->messageBuilder = new RaygunMessageBuilder();
+        $this->messageSender = $messageSender;
+        $this->messageBuilder = $messageBuilder;
     }
 
     /**

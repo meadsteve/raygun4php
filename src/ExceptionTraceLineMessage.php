@@ -1,7 +1,7 @@
 <?php
 namespace MeadSteve\Raygun4php;
 
-class RaygunExceptionTraceLineMessage
+class ExceptionTraceLineMessage
 {
     public $LineNumber;
     public $ClassName;

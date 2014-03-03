@@ -1,7 +1,7 @@
 <?php
 namespace MeadSteve\Raygun4php;
 
-class RaygunRequestMessage
+class RequestMessage
 {
     public $hostName;
     public $url;

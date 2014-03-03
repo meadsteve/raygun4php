@@ -1,7 +1,7 @@
 <?php
 namespace MeadSteve\Raygun4php;
 
-class RaygunMessageDetails
+class MessageDetails
 {
     public $Error;
     public $MachineName;

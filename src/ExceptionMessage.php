@@ -1,7 +1,7 @@
 <?php
 namespace MeadSteve\Raygun4php;
 
-class RaygunExceptionMessage
+class ExceptionMessage
 {
     public $Message;
     public $ClassName;
@@ -32,7 +32,7 @@ class RaygunExceptionMessage
         $lines = array();
         foreach ($traces as $trace)
         {
-            $line = new RaygunExceptionTraceLineMessage();
+            $line = new ExceptionTraceLineMessage();
             if (array_key_exists("file", $trace))
             {
             $line->FileName = $trace["file"];

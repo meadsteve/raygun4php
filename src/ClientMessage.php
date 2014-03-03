@@ -1,7 +1,7 @@
 <?php
 namespace MeadSteve\Raygun4php;
 
-class RaygunClientMessage
+class ClientMessage
 {
     public $name;
     public $version;

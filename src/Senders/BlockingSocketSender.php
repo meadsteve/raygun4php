@@ -2,9 +2,9 @@
 
 namespace MeadSteve\Raygun4php\Senders;
 
-use MeadSteve\Raygun4php\RaygunMessage;
+use MeadSteve\Raygun4php\Message;
 
-class RaygunBlockingSocketSender implements RaygunMessageSender
+class BlockingSocketSender implements MessageSender
 {
 
     private $apiKey;
@@ -30,7 +30,7 @@ class RaygunBlockingSocketSender implements RaygunMessageSender
     }
 
 
-    public function Send(RaygunMessage $message)
+    public function Send(Message $message)
     {
         $data_to_send = json_encode($message);
         $remote = $this->buildRemotePath($this->host, $this->opts);

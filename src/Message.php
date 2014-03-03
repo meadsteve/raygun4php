@@ -1,7 +1,7 @@
 <?php
 namespace MeadSteve\Raygun4php;
 
-class RaygunMessage
+class Message
 {
     public $OccurredOn;
     public $Details;
@@ -12,15 +12,15 @@ class RaygunMessage
             $timestamp = time();
         }
         $this->OccurredOn = gmdate("Y-m-d\TH:i:s", $timestamp);
-        $this->Details = new RaygunMessageDetails();
+        $this->Details = new MessageDetails();
     }
 
     public function Build($exception)
     {
         $this->Details->MachineName = gethostname();
-        $this->Details->Error = new RaygunExceptionMessage($exception);
-        $this->Details->Request = new RaygunRequestMessage();
-        $this->Details->Environment = new RaygunEnvironmentMessage();
-        $this->Details->Client = new RaygunClientMessage();
+        $this->Details->Error = new ExceptionMessage($exception);
+        $this->Details->Request = new RequestMessage();
+        $this->Details->Environment = new EnvironmentMessage();
+        $this->Details->Client = new ClientMessage();
     }
 }

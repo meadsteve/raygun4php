@@ -3,9 +3,9 @@
 namespace MeadSteve\Raygun4php\Senders;
 
 
-use MeadSteve\Raygun4php\RaygunMessage;
+use MeadSteve\Raygun4php\Message;
 
-class RaygunForkCurlSender implements RaygunMessageSender
+class ForkCurlSender implements MessageSender
 {
 
     private $apiKey;
@@ -31,7 +31,7 @@ class RaygunForkCurlSender implements RaygunMessageSender
     }
 
 
-    public function Send(RaygunMessage $message)
+    public function Send(Message $message)
     {
         $data_to_send = json_encode($message);
         $output = "";

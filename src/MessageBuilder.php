@@ -4,7 +4,7 @@ namespace MeadSteve\Raygun4php;
 
 use Rhumsaa\Uuid\Uuid;
 
-class RaygunMessageBuilder {
+class MessageBuilder {
 
     private $user;
     private $version;
@@ -59,15 +59,15 @@ class RaygunMessageBuilder {
      */
     public  function BuildMessage($errorException, $timestamp = null)
     {
-        $message = new RaygunMessage($timestamp);
+        $message = new Message($timestamp);
         $message->Build($errorException);
         $message->Details->Version = $this->version;
-        $message->Details->Context = new RaygunIdentifier(session_id());
+        $message->Details->Context = new Identifier(session_id());
 
         if ($this->user != null) {
-            $message->Details->User = new RaygunIdentifier($this->user);
+            $message->Details->User = new Identifier($this->user);
         } else {
-            $message->Details->User = new RaygunIdentifier($_COOKIE['rguserid']);
+            $message->Details->User = new Identifier($_COOKIE['rguserid']);
         }
         return $message;
     }
@@ -77,7 +77,7 @@ class RaygunMessageBuilder {
         if (is_array($tags)) {
             $message->Details->Tags = $tags;
         } else {
-            throw new Raygun4PhpException("Tags must be an array");
+            throw new Exception("Tags must be an array");
         }
     }
 

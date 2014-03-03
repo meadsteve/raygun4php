@@ -1,7 +1,7 @@
 <?php
 namespace MeadSteve\Raygun4php;
 
-class RaygunEnvironmentMessage
+class EnvironmentMessage
 {
     public $utcOffset;
 

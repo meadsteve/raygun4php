@@ -49,8 +49,7 @@ class RaygunBlockingSocketSender implements RaygunMessageSender
             fclose($fp);
             return 202;
         } else {
-            echo "<br/><br/>" . "<strong>Raygun Warning:</strong> Couldn't send asynchronously. Try calling new RaygunClient('apikey', FALSE); to use an alternate sending method" . "<br/><br/>";
-            trigger_error('httpPost error: ' . $errstr);
+            syslog(LOG_WARNING, "Problem logging error with raygun: " . $errstr);
             return null;
         }
     }

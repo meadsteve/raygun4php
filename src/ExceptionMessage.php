@@ -36,24 +36,7 @@ class ExceptionMessage
         $lines = array();
         foreach ($traces as $trace)
         {
-            $line = new ExceptionTraceLineMessage();
-            if (array_key_exists("file", $trace))
-            {
-            $line->FileName = $trace["file"];
-            }
-            if (array_key_exists("class", $trace))
-            {
-            $line->ClassName = $trace["class"];
-            }
-            if (array_key_exists("function", $trace))
-            {
-            $line->MethodName = $trace["function"];
-            }
-            if (array_key_exists("line", $trace))
-            {
-            $line->LineNumber = $trace["line"];
-            }
-            $lines[] = $line;
+            $lines[] = new ExceptionTraceLineMessage($trace);
          }
         $this->StackTrace = $lines;
     }

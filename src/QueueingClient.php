@@ -138,7 +138,8 @@ class QueueingClient
         $this->queuedMessages = array();
     }
 
-    private function queueMessage($data_to_send) {
+    private function queueMessage($data_to_send)
+    {
         $this->queuedMessages[] = $data_to_send;
         return 202;
     }

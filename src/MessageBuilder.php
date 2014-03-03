@@ -82,7 +82,7 @@ class MessageBuilder
         }
     }
 
-    public  function AddUserCustomDataToMessage(&$message, $userCustomData)
+    public function AddUserCustomDataToMessage(&$message, $userCustomData)
     {
         if ($this->is_assoc($userCustomData)) {
             $message->Details->UserCustomData = $userCustomData;

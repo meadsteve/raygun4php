@@ -33,7 +33,7 @@ class ForkCurlSender implements MessageSender
 
     public function Send(Message $message)
     {
-        $data_to_send = json_encode($message);
+        $data_to_send = $message->getAsJson();
         $output = "";
         $cmd = "curl -X POST -H 'Content-Type: application/json' -H 'X-ApiKey: " . $this->apiKey . "'";
         $cmd .= " -d '" . $data_to_send . "' --cacert '" . realpath(__DIR__ . $this->cert_path)

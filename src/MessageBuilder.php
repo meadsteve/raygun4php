@@ -61,31 +61,31 @@ class MessageBuilder
     public function BuildMessage($errorException, $timestamp = null)
     {
         $message = new Message($timestamp);
-        $message->Build($errorException);
-        $message->Details->Version = $this->version;
-        $message->Details->Context = new Identifier(session_id());
+        $message->setException($errorException);
+        $message->setVersion($this->version);
+        $message->setContext(new Identifier(session_id()));
 
         if ($this->user != null) {
-            $message->Details->User = new Identifier($this->user);
+            $message->setUser(new Identifier($this->user));
         } else {
-            $message->Details->User = new Identifier($_COOKIE['rguserid']);
+            $message->setUser(new Identifier($_COOKIE['rguserid']));
         }
         return $message;
     }
 
-    public function AddTagsToMessage(&$message, $tags)
+    public function AddTagsToMessage(Message $message, $tags)
     {
         if (is_array($tags)) {
-            $message->Details->Tags = $tags;
+            $message->setTags($tags);
         } else {
             throw new Exception("Tags must be an array");
         }
     }
 
-    public function AddUserCustomDataToMessage(&$message, $userCustomData)
+    public function AddUserCustomDataToMessage(Message $message, $userCustomData)
     {
         if ($this->is_assoc($userCustomData)) {
-            $message->Details->UserCustomData = $userCustomData;
+            $message->setUserCustomData($userCustomData);
         } else {
             throw new Exception("UserCustomData must be an associative array");
         }

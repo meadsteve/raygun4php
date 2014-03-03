@@ -32,7 +32,7 @@ class BlockingSocketSender implements MessageSender
 
     public function Send(Message $message)
     {
-        $data_to_send = json_encode($message);
+        $data_to_send = $message->getAsJson();
         $remote = $this->buildRemotePath($this->host, $this->opts);
         $context = $this->buildRequestContext($this->cert_path);
         $fp = stream_socket_client($remote, $err, $errstr, 10, STREAM_CLIENT_CONNECT, $context);

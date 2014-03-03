@@ -1,16 +1,15 @@
 <?php
-namespace Raygun4php
-{
-    class RaygunEnvironmentMessage
-    {
-        public $utcOffset;
+namespace MeadSteve\Raygun4php;
 
-        public function __construct()
+class RaygunEnvironmentMessage
+{
+    public $utcOffset;
+
+    public function __construct()
+    {
+        if (ini_get('date.timezone'))
         {
-            if (ini_get('date.timezone'))
-            {
-                $this->utcOffset = @date('Z') / 3600;
-            }
+            $this->utcOffset = @date('Z') / 3600;
         }
     }
 }

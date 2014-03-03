@@ -1,13 +1,12 @@
 <?php
-namespace Raygun4php
+namespace MeadSteve\Raygun4php;
+
+class RaygunIdentifier
 {
-	class RaygunIdentifier
-	{
 		public $Identifier;
 
 		public function __construct($id)
 		{
 			$this->Identifier = $id;
 		}
-	}
 }

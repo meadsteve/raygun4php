@@ -1,6 +1,6 @@
 <?php
 
-namespace Raygun4php;
+namespace MeadSteve\Raygun4php;
 
 use Rhumsaa\Uuid\Uuid;
 

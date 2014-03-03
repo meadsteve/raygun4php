@@ -6,9 +6,9 @@
  * Time: 09:42
  */
 
-namespace Raygun4php\Senders;
+namespace MeadSteve\Raygun4php\Senders;
 
-use Raygun4php\RaygunMessage;
+use MeadSteve\Raygun4php\RaygunMessage;
 
 interface RaygunMessageSender {
     public function Send(RaygunMessage $message);

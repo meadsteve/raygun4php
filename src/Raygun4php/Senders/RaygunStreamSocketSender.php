@@ -1,9 +1,9 @@
 <?php
 
-namespace Raygun4php\Senders;
+namespace MeadSteve\Raygun4php\Senders;
 
 
-use Raygun4php\RaygunMessage;
+use MeadSteve\Raygun4php\RaygunMessage;
 
 class RaygunStreamSocketSender implements RaygunMessageSender {
 

@@ -7,7 +7,7 @@ class RequestMessage
     public $url;
     public $httpMethod;
     public $ipAddress;
-    //
+
     public $queryString;
     public $headers;
     public $data;

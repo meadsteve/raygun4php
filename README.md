@@ -1,7 +1,8 @@
 Raygun4php
 ==========
 
-[Raygun.io](http://raygun.io) provider for PHP 5.3
+This is a fork of the official ray gun client for php found here: [MindscapeHQ/raygun4php](https://github.com/MindscapeHQ/raygun4php/).
+I am intending to keep interface of the Client object the same as for the official client so that it will be possible to switch back and forth.
 
 ## Installation
 
@@ -17,7 +18,7 @@ Composer is a package management tool for PHP which automatically fetches depend
 ```json
 {
         "require": {
-            "mindscape/raygun4php": "1.*"
+            "mead-steve/raygun4php": "1.*"
         }
 }
 ```
@@ -43,11 +44,7 @@ You can send both PHP errors and object-oriented exceptions to Raygun. An easy w
 Then, create handlers that look something like this:
 
 ```php
-namespace
-{
-	// your 'requires' statement
-	
-	$client = new \Raygun4php\RaygunClient("{{apikey for your application}}");
+	$client = \MeadSteve\Raygun4php\RayGun::getClient("{{apikey for your application}}");
 
 	function error_handler($errno, $errstr, $errfile, $errline ) {
 		global $client;
@@ -62,26 +59,12 @@ namespace
 
 	set_exception_handler('exception_handler');
 	set_error_handler("error_handler");
-}
 ```
 
-Note that if you are placing in inside a file with a namespace of your choosing, the above code should be declared to be within the global namespace (thus the `namespace { }` is required). You will also need whichever `requires` statement as above (autoload or manual) before the `$client` instantiation.
 
 Copy your application's API key from the Raygun.io dashboard, and place it in the constructor call as above (do not include the curly brackets).
 
 If the handlers reside in their own file, just import it in every file where you'd like exceptions and errors to be sent, and they will be delivered to Raygun.io.
-
-## New in 1.2: Choice of sending algorithm - async or non-async (blocking)
-
-This release introduces a new function and optional parameter in the constructor:
-
-```php
-$client = new \Raygun4php\RaygunClient("{{apikey}}==", boolean useAsyncSending);
-```
-
-* If useAsyncSending is *true*, the message will be sent asynchronously. This provides a great speedup versus the older cURL method. This is the default.
-
-* If useAsyncSending is *false*, the message will be sent with a blocking socket connection. This is provided for compatibility, and as a workaround for a bug in PHP 5.3 running on Windows. If this library is used on Windows, this is the only option available - you can however override it manually if you wish. This method still provides a >50% speedup over the old cURL method.
 
 
 #### Version numbers
@@ -99,13 +82,3 @@ This feature can be used in CLI mode by calling SetUser(string) at the start of 
 ## Troubleshooting
 
 SendError and SendException return the HTTP status code of the transaction - `echo`ing this will give you a 403 if your API key is incorrect or a 200 if everything was a success.
-
-## Changelog
-
-* Version 1.2.1: Several bugfixes for user tracking and request processing
-
-* Version 1.2: Added new async sending function; removed cURL dependency
-
-* Version 1.1: Added user tracking support; improved experience in CLI mode; add user-specified timestamp support; fixed user data encoding error
-
-* Version 1.0: Initial commit

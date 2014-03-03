@@ -1,7 +1,7 @@
 {
-    "name": "mindscape/raygun4php",
+    "name": "mead-steve/raygun4php",
     "type": "library",
-    "description": "Raygun.io client for PHP 5.3, to send errors and exceptions automatically.",
+    "description": "This is a fork of the Raygun.io client for PHP 5.3, to send errors and exceptions automatically. Hopefully this fork will be a bit easier to write tests for and uses additional ways of sending messages to raygun.",
     "authors": [
         {
             "name": "Mindscape",

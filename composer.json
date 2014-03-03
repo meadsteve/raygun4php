@@ -26,8 +26,8 @@
         "ext-curl": "*"
     },
     "autoload": {
-        "psr-0": {
-            "Raygun4php": "src/"
+        "psr-4": {
+            "MeadSteve\\Raygun4php\\": "src/"
         }
     }
 }

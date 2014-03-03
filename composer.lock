@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4ae10d764b5515edac927564c3641e8b",
+    "hash": "58b5b8e755197e20a7e0bbc5e983a7a1",
     "packages": [
         {
             "name": "rhumsaa/uuid",

@@ -55,7 +55,7 @@ class MessageBuilder {
      * @param $errorException
      * @param mixed $timestamp
      * @internal param array $tags The tags relating to your project's version
-     * @return \Raygun4php\RaygunMessage
+     * @return \MeadSteve\Raygun4php\Message
      */
     public  function BuildMessage($errorException, $timestamp = null)
     {
@@ -86,7 +86,7 @@ class MessageBuilder {
         if ($this->is_assoc($userCustomData)) {
             $message->Details->UserCustomData = $userCustomData;
         } else {
-            throw new \Raygun4php\Raygun4PhpException("UserCustomData must be an associative array");
+            throw new Exception("UserCustomData must be an associative array");
         }
     }
 

@@ -32,9 +32,19 @@ class Client
     * data in the message payload
     * @return The HTTP status code of the result when transmitting the message to Raygun.io
     */
-    public function SendError($errno, $errstr, $errfile, $errline, $tags = null, $userCustomData = null, $timestamp = null)
-    {
-        $message = $this->messageBuilder->BuildMessage(new \ErrorException($errstr, $errno, 0, $errfile, $errline), $timestamp);
+    public function SendError(
+        $errno,
+        $errstr,
+        $errfile,
+        $errline,
+        $tags = null,
+        $userCustomData = null,
+        $timestamp = null
+    ) {
+        $message = $this->messageBuilder->BuildMessage(
+            new \ErrorException($errstr, $errno, 0, $errfile, $errline),
+            $timestamp
+        );
 
         if ($tags != null) {
             $this->messageBuilder->AddTagsToMessage($message, $tags);

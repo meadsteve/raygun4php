@@ -9,7 +9,7 @@ class RayGun
      * @param bool $useAsyncSending
      * @return Client
      */
-    static function getClient($key, $useAsyncSending = true)
+    public static function getClient($key, $useAsyncSending = true)
     {
         $messageBuilder = new MessageBuilder();
 
@@ -20,8 +20,7 @@ class RayGun
                 '/entries',
                 realpath(__DIR__ . '/cacert.crt')
             );
-        }
-        else {
+        } else {
             $messageSender = new Senders\BlockingSocketSender(
                 $key,
                 'api.raygun.io',
@@ -32,4 +31,4 @@ class RayGun
 
         return new Client($messageBuilder, $messageSender);
     }
-} 
+}

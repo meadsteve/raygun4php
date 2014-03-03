@@ -38,8 +38,15 @@ class QueueingClient
      * @internal param int $errorno The error number
      * @return int The HTTP status code of the result when transmitting the message to Raygun.io
      */
-    public function SendError($errno, $errstr, $errfile, $errline, $tags = null, $userCustomData = null, $timestamp = null)
-    {
+    public function SendError(
+        $errno,
+        $errstr,
+        $errfile,
+        $errline,
+        $tags = null,
+        $userCustomData = null,
+        $timestamp = null
+    ) {
         $errorException = new \ErrorException($errstr, $errno, 0, $errfile, $errline);
         $message = $this->messageBuilder->BuildMessage($errorException, $timestamp);
 
@@ -106,7 +113,7 @@ class QueueingClient
      * Transmits an exception or ErrorException to the Raygun.io API. The default attempts to transmit asynchronously.
      * To disable this and transmit sync (blocking), pass false in as the 2nd parameter in RaygunClient's
      * constructor. This may be necessary on some Windows installations where the implementation is broken.
-     * @param \Raygun4php\RaygunMessage $message A populated message to be posted to the Raygun API
+     * @param Message $message A populated message to be posted to the Raygun API
      * @return int The HTTP status code of the result after transmitting the message to Raygun.io
      * 202 if accepted, 403 if invalid JSON payload
      */
@@ -114,8 +121,7 @@ class QueueingClient
     {
         if ($this->useAsyncSending) {
             return $this->queueMessage($message);
-        }
-        else {
+        } else {
             return $this->messageSender->Send($message);
         }
     }
@@ -125,8 +131,7 @@ class QueueingClient
         foreach ($this->queuedMessages as $message) {
             try {
                 $this->messageSender->Send($message);
-            }
-            catch(\Exception $exception) {
+            } catch (\Exception $exception) {
                 syslog(LOG_ERR, "Failed to record error with Raygun because " . $exception->getMessage());
             }
         }

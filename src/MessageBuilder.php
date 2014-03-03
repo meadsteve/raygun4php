@@ -4,12 +4,13 @@ namespace MeadSteve\Raygun4php;
 
 use Rhumsaa\Uuid\Uuid;
 
-class MessageBuilder {
+class MessageBuilder
+{
 
     private $user;
     private $version;
 
-    function __construct()
+    public function __construct()
     {
         $this->SetUser();
     }
@@ -57,7 +58,7 @@ class MessageBuilder {
      * @internal param array $tags The tags relating to your project's version
      * @return \MeadSteve\Raygun4php\Message
      */
-    public  function BuildMessage($errorException, $timestamp = null)
+    public function BuildMessage($errorException, $timestamp = null)
     {
         $message = new Message($timestamp);
         $message->Build($errorException);
@@ -94,4 +95,4 @@ class MessageBuilder {
     {
         return (bool)count(array_filter(array_keys($array), 'is_string'));
     }
-} 
+}

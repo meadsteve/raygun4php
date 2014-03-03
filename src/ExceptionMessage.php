@@ -15,12 +15,9 @@ class ExceptionMessage
     public function __construct($exception)
     {
         $exceptionClass = get_class($exception);
-        if ($exceptionClass != "ErrorException")
-        {
+        if ($exceptionClass != "ErrorException") {
             $this->Message = $exceptionClass.": ".$exception->getMessage();
-        }
-        else
-        {
+        } else {
             $this->Message = "Error: ".$exception->getMessage();
         }
         $this->FileName = baseName($exception->getFile());
@@ -34,10 +31,9 @@ class ExceptionMessage
     {
         $traces = $exception->getTrace();
         $lines = array();
-        foreach ($traces as $trace)
-        {
+        foreach ($traces as $trace) {
             $lines[] = new ExceptionTraceLineMessage($trace);
-         }
+        }
         $this->StackTrace = $lines;
     }
 }

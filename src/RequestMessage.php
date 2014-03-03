@@ -17,47 +17,21 @@ class RequestMessage
     public function __construct()
     {
         if (php_sapi_name() !== 'cli') {
-            $this->hostName = $_SERVER['HTTP_HOST'];
-            $this->httpMethod = $_SERVER['REQUEST_METHOD'];
-            $this->url = $_SERVER['REQUEST_URI'];
-            $this->ipAddress = $_SERVER['REMOTE_ADDR'];
-
-            parse_str($_SERVER['QUERY_STRING'], $this->queryString);
-            if (empty($this->queryString)) {
-                $this->queryString = null;
-            }
+            $this->addRequestAddress();
         }
 
-        $this->headers = $this->emu_getAllHeaders();
+        $this->headers = $this->addRequestHeaders();
+
         $this->data = $_SERVER;
 
-        $utf8_convert = function ($value) use (&$utf8_convert) {
-            return is_array($value) ?
-            array_map($utf8_convert, $value) :
-            iconv('UTF-8', 'UTF-8//IGNORE', $value);
-        };
-        $this->form = array_map($utf8_convert, $_POST);
+        $this->addForm();
 
         if (php_sapi_name() !== 'cli') {
-            $contentType = null;
-            if (isset($_SERVER['CONTENT_TYPE'])) {
-                $contentType = $_SERVER['CONTENT_TYPE'];
-            } elseif (isset($_SERVER['HTTP_CONTENT_TYPE'])) {
-                $contentType = $_SERVER['HTTP_CONTENT_TYPE'];
-            }
-
-            if ($_SERVER['REQUEST_METHOD'] != 'GET' &&
-                $contentType != null &&
-                $contentType != 'application/x-www-form-urlencoded' &&
-                $contentType != 'multipart/form-data' &&
-                $contentType != 'text/html'
-            ) {
-                $this->rawData = iconv('UTF-8', 'UTF-8//IGNORE', file_get_contents('php://input'));
-            }
+            $this->addRequestContents();
         }
     }
 
-    private function emu_getAllHeaders()
+    protected function addRequestHeaders()
     {
         if (!function_exists('getallheaders')) {
             $headers = '';
@@ -71,5 +45,47 @@ class RequestMessage
         } else {
             return getallheaders();
         }
+    }
+
+    protected function addRequestAddress()
+    {
+        $this->hostName = $_SERVER['HTTP_HOST'];
+        $this->httpMethod = $_SERVER['REQUEST_METHOD'];
+        $this->url = $_SERVER['REQUEST_URI'];
+        $this->ipAddress = $_SERVER['REMOTE_ADDR'];
+
+        parse_str($_SERVER['QUERY_STRING'], $this->queryString);
+        if (empty($this->queryString)) {
+            $this->queryString = null;
+        }
+    }
+
+    protected function addRequestContents()
+    {
+        $contentType = null;
+        if (isset($_SERVER['CONTENT_TYPE'])) {
+            $contentType = $_SERVER['CONTENT_TYPE'];
+        } elseif (isset($_SERVER['HTTP_CONTENT_TYPE'])) {
+            $contentType = $_SERVER['HTTP_CONTENT_TYPE'];
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] != 'GET' &&
+            $contentType != null &&
+            $contentType != 'application/x-www-form-urlencoded' &&
+            $contentType != 'multipart/form-data' &&
+            $contentType != 'text/html'
+        ) {
+            $this->rawData = iconv('UTF-8', 'UTF-8//IGNORE', file_get_contents('php://input'));
+        }
+    }
+
+    protected function addForm()
+    {
+        $utf8_convert = function ($value) use (&$utf8_convert) {
+            return is_array($value) ?
+                array_map($utf8_convert, $value) :
+                iconv('UTF-8', 'UTF-8//IGNORE', $value);
+        };
+        $this->form = array_map($utf8_convert, $_POST);
     }
 }

@@ -63,7 +63,7 @@ class Message
     public function jsonSerialize()
     {
         return array(
-            'OccurredOn' => $this->$OccurredOn,
+            'OccurredOn' => $this->OccurredOn,
             'Details' => $this->Details
         );
     }

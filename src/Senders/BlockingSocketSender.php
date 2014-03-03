@@ -14,14 +14,13 @@ class BlockingSocketSender implements MessageSender
     private $opts;
 
 
-    function __construct(
+    public function __construct(
         $apiKey,
         $host,
         $end_point,
         $cert_path,
         $opts = array('headers' => 0, 'transport' => 'ssl', 'port' => 443)
-    )
-    {
+    ) {
         $this->apiKey = $apiKey;
         $this->host = $host;
         $this->end_point = $end_point;
@@ -90,4 +89,4 @@ class BlockingSocketSender implements MessageSender
         $remote = $transport . '://' . $host . ':' . $port;
         return $remote;
     }
-} 
+}

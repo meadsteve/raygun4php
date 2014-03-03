@@ -2,10 +2,10 @@
 
 namespace MeadSteve\Raygun4php\Senders;
 
-
 use MeadSteve\Raygun4php\Message;
 
-class StreamSocketSender implements MessageSender {
+class StreamSocketSender implements MessageSender
+{
 
     private $apiKey;
     private $host;
@@ -14,14 +14,13 @@ class StreamSocketSender implements MessageSender {
     private $opts;
 
 
-    function __construct(
+    public function __construct(
         $apiKey,
         $host,
         $end_point,
         $cert_path,
         $opts = array('headers' => 0, 'transport' => 'ssl', 'port' => 443)
-    )
-    {
+    ) {
         $this->apiKey = $apiKey;
         $this->host = $host;
         $this->end_point = $end_point;
@@ -105,4 +104,4 @@ class StreamSocketSender implements MessageSender {
         $remote = $transport . '://' . $host . ':' . $port;
         return $remote;
     }
-} 
+}
